@@ -8,6 +8,6 @@ import lombok.Setter;
 public class ContatoResponse {
 
 	private String nome;
-	private Long idUsuarioContato;
+	private String usernameContato;
 
 }

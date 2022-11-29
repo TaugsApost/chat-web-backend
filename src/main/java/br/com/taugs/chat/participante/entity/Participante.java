@@ -1,5 +1,6 @@
-package br.com.taugs.chat.usuarioconversa.entity;
+package br.com.taugs.chat.participante.entity;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -20,9 +21,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import br.com.taugs.chat.conversa.entity.Conversa;
+import br.com.taugs.chat.grupo.entity.Grupo;
+import br.com.taugs.chat.mensagem.grupo.entity.MensagemGrupo;
 import br.com.taugs.chat.usuario.entity.Usuario;
-import br.com.taugs.chat.usuarioconversamensagem.entity.UsuarioConversaMensagem;
 import br.com.taugs.persistence.AbstractEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,45 +31,43 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "tb_usuario_conversa", schema = "chat_db")
+@Table(name = "tb_participante")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
-@IdClass(UsuarioConversaPK.class)
-public class UsuarioConversa extends AbstractEntity<Long> {
+@IdClass(ParticipantePK.class)
+public class Participante extends AbstractEntity<Long> {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3698975990993158903L;
+	private static final long serialVersionUID = -593025832580475893L;
 
 	@Id
-	@Column(name = "id_conversa")
-	private Long idConversa;
+	private String username;
 
 	@Id
-	@Column(name = "id_usuario")
-	private Long idUsuario;
+	@Column(name = "id_grupo")
+	private Long idGrupo;
 
-	@Column(name = "nome_conversa")
-	private String nomeConversa;
+	private Timestamp dataInscricao;
+
+	@JsonManagedReference("mensagem_grupo")
+	@Fetch(value = FetchMode.SUBSELECT)
+	@OneToMany(mappedBy = "participante", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	private List<MensagemGrupo> listaDeMensagens;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JsonBackReference("usuario_conversa")
-	@JoinColumn(name = "id_usuario", insertable = false, updatable = false)
+	@JsonBackReference("grupo_usuario")
+	@JoinColumn(name = "username", insertable = false, updatable = false)
 	private Usuario usuario;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JsonBackReference("conversa_usuario")
-	@JoinColumn(name = "id_conversa", insertable = false, updatable = false)
-	private Conversa conversa;
-
-	@JsonManagedReference("usuario_conversa_mensagem")
-	@Fetch(value = FetchMode.SUBSELECT)
-	@OneToMany(mappedBy = "conversa", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-	private List<UsuarioConversaMensagem> listaDeMensagens;
+	@JsonBackReference
+	@JoinColumn(name = "id_grupo", insertable = false, updatable = false)
+	private Grupo grupo;
 
 	@Override
 	public Long getId() {

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -18,7 +20,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "tb_mensagem", schema = "chat_db")
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "tb_mensagem")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -36,20 +39,8 @@ public class Mensagem extends AbstractEntity<Long> {
 	@Column(name = "id_mensagem")
 	private Long id;
 
-	@Column(name = "id_usuario")
-	private Long idUsuario;
-
-	@Column(name = "id_conversa")
-	private Long idConversa;
-
 	private String conteudo;
 
-	@Column(name = "data_envio")
 	private Timestamp dataEnvio;
-
-	// @JsonManagedReference("mensagem")
-	// @Fetch(value = FetchMode.SUBSELECT)
-	// @OneToMany(mappedBy = "mensagem", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-	// private List<UsuarioConversaMensagem> listaDeConversas;
 
 }

@@ -11,9 +11,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import br.com.taugs.chat.usuarioconversa.entity.UsuarioConversa;
-import br.com.taugs.chat.usuarioconversa.entity.UsuarioConversaPK;
-
 public abstract class AbstractServiceBean<E extends AbstractEntity<T>, T extends Object> implements IService<E, T> {
 
 	private final Class<E> entityClass;
@@ -90,10 +87,4 @@ public abstract class AbstractServiceBean<E extends AbstractEntity<T>, T extends
 		TypedQuery<E> query = this.em.createQuery(criteriaQuery);
 		return query.getResultList();
 	}
-
-	public UsuarioConversa detalhar(UsuarioConversaPK pk) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

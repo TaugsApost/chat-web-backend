@@ -3,9 +3,8 @@ package br.com.taugs.chat.contato.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -27,6 +26,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
+@IdClass(ContatoPK.class)
 public class Contato extends AbstractEntity<Long> {
 
 	/**
@@ -38,21 +38,34 @@ public class Contato extends AbstractEntity<Long> {
 	        + "(UPPER(TRANSLATE(COALESCE(contato.nome,''),'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) LIKE :nome)";
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_contato")
-	private Long id;
+	@Column(name = "username_usuario")
+	private String usernameUsuario;
 
-	@Column(name = "id_usuario_contato")
-	private Long idUsuarioContato;
+	@Id
+	@Column(name = "username_contato")
+	private String usernameContato;
+
+	private String nomeContato;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonBackReference("contato_usuario")
-	@JoinColumn(name = "id_usuario", insertable = false, updatable = false)
+	@JoinColumn(name = "username_usuario", insertable = false, updatable = false)
 	private Usuario usuario;
 
-	@Column(name = "id_usuario")
-	private Long idUsuario;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "username_contato", insertable = false, updatable = false)
+	private Usuario contato;
 
-	private String nome;
+	@Override
+	public Long getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setId(Long id) {
+		// TODO Auto-generated method stub
+
+	}
 
 }

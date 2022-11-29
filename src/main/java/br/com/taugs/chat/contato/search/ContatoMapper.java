@@ -10,8 +10,8 @@ public class ContatoMapper {
 	private static ContatoResponse toResponse(Contato from) {
 		ContatoResponse to = new ContatoResponse();
 
-		to.setIdUsuarioContato(from.getIdUsuarioContato());
-		to.setNome(from.getNome());
+		to.setNome(from.getNomeContato());
+		to.setUsernameContato(from.getUsernameContato());
 
 		return to;
 	}

@@ -11,6 +11,7 @@ import br.com.taugs.chat.contato.entity.Contato;
 import br.com.taugs.chat.contato.search.ContatoFilter;
 import br.com.taugs.chat.contato.search.ContatoMapper;
 import br.com.taugs.chat.contato.search.ContatoResponse;
+import br.com.taugs.chat.utils.Utils;
 import br.com.taugs.persistence.AbstractServiceBean;
 import br.com.taugs.persistence.ServiceException;
 
@@ -46,7 +47,7 @@ public class ContatoServiceBean extends AbstractServiceBean<Contato, Long> imple
 	@Override
 	public List<ContatoResponse> pesquisar(ContatoFilter filter) {
 		List<Contato> listaContato = this.getEntityManager().createQuery(Contato.QUERY_PESQUISA, Contato.class)//
-		        .setParameter("nome", filter.getNome())//
+		        .setParameter("nome", Utils.stringLike(filter.getNome()))//
 		        .getResultList();
 		return ContatoMapper.toResponse(listaContato);
 	}
