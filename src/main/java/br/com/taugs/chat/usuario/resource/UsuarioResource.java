@@ -60,12 +60,12 @@ public class UsuarioResource {
 	}
 
 	@PostMapping(value = "/logar")
-	public ResponseEntity<UsuarioResponse> logar(@RequestBody Login login) throws ServiceException {
-		UsuarioResponse response = service.logar(login);
+	public ResponseEntity<Usuario> logar(@RequestBody Login login) throws ServiceException {
+		Usuario response = service.logar(login);
 		if (response != null) {
-			return new ResponseEntity<UsuarioResponse>(response, HttpStatus.OK);
+			return new ResponseEntity<Usuario>(response, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<UsuarioResponse>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Usuario>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

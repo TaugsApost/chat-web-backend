@@ -13,7 +13,7 @@ import br.com.taugs.persistence.ServiceException;
 
 @Service
 @Transactional
-public class ParticipanteServiceBean extends AbstractServiceBean<Participante, Long> {
+public class ParticipanteServiceBean extends AbstractServiceBean<Participante, Long> implements ParticipanteService {
 
 	public ParticipanteServiceBean(EntityManager em) {
 		super(em);

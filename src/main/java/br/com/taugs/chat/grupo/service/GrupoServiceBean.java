@@ -3,8 +3,10 @@ package br.com.taugs.chat.grupo.service;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.taugs.chat.grupo.entity.Grupo;
 import br.com.taugs.chat.grupo.search.GrupoFilter;
@@ -15,6 +17,8 @@ import br.com.taugs.chat.utils.Utils;
 import br.com.taugs.persistence.AbstractServiceBean;
 import br.com.taugs.persistence.ServiceException;
 
+@Service
+@Transactional
 public class GrupoServiceBean extends AbstractServiceBean<Grupo, Long> implements GrupoService {
 
 	@Autowired

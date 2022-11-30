@@ -34,7 +34,8 @@ public class MensagemChat extends Mensagem {
 
 	public static final String LISTAR_MENSAGENS_USUARIO = "SELECT MAX(msg) FROM MensagemChat msg WHERE "//
 	        + "((msg.usernameEmissor = :username) OR (msg.usernameReceptor = :username)) " //
-	        + "group by msg.usernameEmissor, msg.usernameReceptor order by msg.dataEnvio DESC";
+	        + "group by msg.usernameEmissor, msg.usernameReceptor ";
+	// + "order by msg.dataEnvio DESC";
 
 	public static final String LISTAR_MENSAGENS_CONVERSA = "SELECT msg FROM MensagemChat msg WHERE "//
 	        + "((msg.usernameEmissor = :username1) AND (msg.usernameReceptor = :username2)) "//

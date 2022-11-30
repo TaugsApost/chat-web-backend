@@ -70,13 +70,13 @@ public class UsuarioServiceBean extends AbstractServiceBean<Usuario, Long> imple
 	}
 
 	@Override
-	public UsuarioResponse logar(Login login) throws ServiceException {
+	public Usuario logar(Login login) throws ServiceException {
 		try {
 			Usuario usuario = this.getEntityManager().createQuery(Usuario.LOGAR, Usuario.class)//
 			        .setParameter("username", login.getUsername())//
 			        .setParameter("senha", login.getSenha())//
 			        .getSingleResult();
-			return new UsuarioResponse(usuario.getUsername());
+			return usuario;
 		} catch (NoResultException e) {
 			return null;
 		}
