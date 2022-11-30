@@ -2,20 +2,33 @@ package br.com.taugs.chat.mensagem.service;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.taugs.chat.conversa.Conversa;
+import br.com.taugs.chat.mensagem.chat.entity.MensagemChat;
+import br.com.taugs.chat.mensagem.chat.service.MensagemChatService;
 import br.com.taugs.chat.mensagem.entity.Mensagem;
+import br.com.taugs.chat.mensagem.grupo.entity.MensagemGrupo;
+import br.com.taugs.chat.mensagem.grupo.service.MensagemGrupoService;
 import br.com.taugs.persistence.AbstractServiceBean;
 import br.com.taugs.persistence.ServiceException;
 
 @Service
 @Transactional
 public class MensagemServiceBean extends AbstractServiceBean<Mensagem, Long> implements MensagemService {
+
+	@Autowired
+	MensagemChatService mensagemCharService;
+
+	@Autowired
+	MensagemGrupoService mensagemGrupoService;
 
 	public MensagemServiceBean(EntityManager em) {
 		super(em);
@@ -46,6 +59,61 @@ public class MensagemServiceBean extends AbstractServiceBean<Mensagem, Long> imp
 	@Override
 	public Mensagem detalhar(Long id) throws ServiceException {
 		return this.detalharEntity(id);
+	}
+
+	@Override
+	public List<MensagemChat> listarMensagensUsuario(String username) {
+		List<MensagemChat> mensagens = this.getEntityManager().createQuery(MensagemChat.LISTAR_MENSAGENS_USUARIO, MensagemChat.class)//
+		        .setParameter("username", username)//
+		        .getResultList();
+		criarListaConversa(mensagens);
+		return mensagens;
+	}
+
+	private void criarListaConversa(List<MensagemChat> lista) {
+		List<MensagemChat> lixo = new ArrayList<MensagemChat>();
+		for (MensagemChat msg : lista) {
+			for (int i = lista.indexOf(msg) + 1; i < lista.size(); i++) {
+				MensagemChat comparar = lista.get(i);
+				if (msg.getUsernameEmissor().equals(comparar.getUsernameReceptor()) //
+				        && msg.getUsernameReceptor().equals(comparar.getUsernameEmissor())) {
+					if (comparar.getDataEnvio().after(msg.getDataEnvio())) {
+						lixo.add(msg);
+					} else {
+						lixo.add(comparar);
+					}
+				}
+			}
+		}
+		lixo.forEach(msg -> {
+			lista.remove(msg);
+		});
+	}
+
+	@Override
+	public List<MensagemChat> listarMensagensConversa(Conversa conversa) {
+		List<MensagemChat> mensagens = this.getEntityManager().createQuery(MensagemChat.LISTAR_MENSAGENS_CONVERSA, MensagemChat.class)//
+		        .setParameter("username1", conversa.getUsername1())//
+		        .setParameter("username2", conversa.getUsername2())//
+		        .getResultList();
+		return mensagens;
+	}
+
+	@Override
+	public List<MensagemGrupo> listarMensagensGrupo(Long idGrupo) {
+		return this.getEntityManager().createQuery(MensagemGrupo.LISTAR_MENSAGENS_GRUPO, MensagemGrupo.class)//
+		        .setParameter("idGrupo", idGrupo)//
+		        .getResultList();
+	}
+
+	@Override
+	public MensagemGrupo salvarMensagemGrupo(MensagemGrupo entity) throws ServiceException {
+		return this.mensagemGrupoService.salvar(entity);
+	}
+
+	@Override
+	public MensagemChat salvarMensagemChat(MensagemChat entity) throws ServiceException {
+		return mensagemCharService.salvar(entity);
 	}
 
 }

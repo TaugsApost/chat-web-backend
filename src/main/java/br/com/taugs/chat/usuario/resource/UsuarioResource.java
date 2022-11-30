@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.taugs.chat.login.Login;
 import br.com.taugs.chat.usuario.entity.Usuario;
 import br.com.taugs.chat.usuario.search.UsuarioFilter;
 import br.com.taugs.chat.usuario.search.UsuarioResponse;
@@ -40,9 +41,9 @@ public class UsuarioResource {
 		return new ResponseEntity<List<UsuarioResponse>>(lista, HttpStatus.OK);
 	}
 
-	@GetMapping(value = RestMapping.DETALHAR + "/{id}")
-	public ResponseEntity<Usuario> detalhar(@PathVariable("id") Long id) throws ServiceException {
-		Usuario entity = service.detalhar(id);
+	@PostMapping(value = RestMapping.DETALHAR)
+	public ResponseEntity<Usuario> detalhar(@RequestBody UsuarioFilter filter) throws ServiceException {
+		Usuario entity = service.detalhar(filter);
 		return new ResponseEntity<Usuario>(entity, HttpStatus.OK);
 	}
 
@@ -56,6 +57,16 @@ public class UsuarioResource {
 	public ResponseEntity<String> excluirUsuario(@PathVariable("id") Long id) throws ServiceException {
 		String msg = service.excluir(id);
 		return new ResponseEntity<String>(msg, HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/logar")
+	public ResponseEntity<UsuarioResponse> logar(@RequestBody Login login) throws ServiceException {
+		UsuarioResponse response = service.logar(login);
+		if (response != null) {
+			return new ResponseEntity<UsuarioResponse>(response, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<UsuarioResponse>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }

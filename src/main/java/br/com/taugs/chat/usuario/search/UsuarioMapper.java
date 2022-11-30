@@ -10,7 +10,6 @@ public class UsuarioMapper {
 	private static UsuarioResponse toResponse(Usuario from) {
 		UsuarioResponse to = new UsuarioResponse();
 
-		to.setId(from.getId());
 		to.setUserName(from.getUsername());
 
 		return to;

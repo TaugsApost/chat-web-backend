@@ -40,6 +40,9 @@ public class Grupo extends AbstractEntity<Long> {
 	 */
 	private static final long serialVersionUID = 3858891167485937630L;
 
+	public static final String PESQUISAR_POR_NOME = "SELECT grupo FROM Grupo grupo WHERE " //
+	        + "(UPPER(TRANSLATE(COALESCE(grupo.nome,''),'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) LIKE :nome)";
+
 	@Id
 	@Column(name = "id_grupo")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

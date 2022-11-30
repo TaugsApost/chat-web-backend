@@ -39,7 +39,13 @@ public class Usuario extends AbstractEntity<Long> {
 	private static final long serialVersionUID = 3430731374358564402L;
 
 	public static final String QUERY_CONSULTA = "Select usuario From Usuario usuario WHERE "//
-	        + "(UPPER(REPLACE(usuario.userName,'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) LIKE :username)";
+	        + "(UPPER(REPLACE(usuario.username,'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) LIKE :username)";
+	public static final String PESQUISAR_POR_ID = "Select usuario From Usuario usuario WHERE "//
+	        + "(UPPER(REPLACE(usuario.username,'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) = :username)";
+
+	public static final String LOGAR = "Select usuario From Usuario usuario WHERE "//
+	        + "(UPPER(REPLACE(usuario.username,'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) = :username) "//
+	        + "AND (usuario.senha = :senha)";
 
 	@Id
 	private String username;

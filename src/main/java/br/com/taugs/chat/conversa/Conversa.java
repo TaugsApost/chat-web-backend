@@ -1,16 +1,16 @@
-package br.com.taugs.chat.usuario.search;
+package br.com.taugs.chat.conversa;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioResponse {
+@Getter
+@Setter
+public class Conversa {
 
-	private String userName;
-
+	private String username1;
+	private String username2;
 }

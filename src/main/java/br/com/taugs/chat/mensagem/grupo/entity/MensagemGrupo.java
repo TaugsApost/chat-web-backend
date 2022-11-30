@@ -32,6 +32,9 @@ public class MensagemGrupo extends Mensagem {
 	*/
 	private static final long serialVersionUID = 1L;
 
+	public static final String LISTAR_MENSAGENS_GRUPO = "SELECT msg FROM MensagemGrupo msg WHERE "//
+	        + "msg.idGrupo = :idGrupo";
+
 	@Column(name = "id_grupo")
 	private Long idGrupo;
 

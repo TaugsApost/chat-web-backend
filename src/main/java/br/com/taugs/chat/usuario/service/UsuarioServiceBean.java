@@ -3,10 +3,12 @@ package br.com.taugs.chat.usuario.service;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import br.com.taugs.chat.login.Login;
 import br.com.taugs.chat.usuario.entity.Usuario;
 import br.com.taugs.chat.usuario.search.UsuarioFilter;
 import br.com.taugs.chat.usuario.search.UsuarioMapper;
@@ -40,16 +42,44 @@ public class UsuarioServiceBean extends AbstractServiceBean<Usuario, Long> imple
 	}
 
 	@Override
-	public Usuario detalhar(Long id) throws ServiceException {
-		return this.detalharEntity(id);
+	public Usuario detalhar(UsuarioFilter filtro) throws ServiceException {
+		Usuario usuario = null;
+		try {
+			usuario = this.getEntityManager().createQuery(Usuario.PESQUISAR_POR_ID, Usuario.class)//
+			        .setParameter("username", filtro.getUserName())//
+			        .getSingleResult();
+			return usuario;
+		} catch (NoResultException e) {
+			return null;
+		}
+
 	}
 
 	@Override
 	public List<UsuarioResponse> pesquisar(UsuarioFilter filtro) {
 		List<Usuario> listaUsuario = this.getEntityManager().createQuery(Usuario.QUERY_CONSULTA, Usuario.class)//
-		        .setParameter("userName", Utils.stringLike(filtro.getUserName()))//
+		        .setParameter("username", Utils.stringLike(filtro.getUserName()))//
 		        .getResultList();
 		return UsuarioMapper.toResponse(listaUsuario);
+	}
+
+	@Override
+	public Usuario detalhar(Long id) throws ServiceException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UsuarioResponse logar(Login login) throws ServiceException {
+		try {
+			Usuario usuario = this.getEntityManager().createQuery(Usuario.LOGAR, Usuario.class)//
+			        .setParameter("username", login.getUsername())//
+			        .setParameter("senha", login.getSenha())//
+			        .getSingleResult();
+			return new UsuarioResponse(usuario.getUsername());
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 
 }
