@@ -11,7 +11,7 @@ import br.com.taugs.persistence.ServiceException;
 
 public interface MensagemService extends IService<Mensagem, Long> {
 
-	List<MensagemChat> listarMensagensUsuario(String username);
+	List<MensagemChat> listarConversasUsuario(String username);
 
 	List<MensagemChat> listarMensagensConversa(Conversa conversa);
 

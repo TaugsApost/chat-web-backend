@@ -62,7 +62,7 @@ public class MensagemServiceBean extends AbstractServiceBean<Mensagem, Long> imp
 	}
 
 	@Override
-	public List<MensagemChat> listarMensagensUsuario(String username) {
+	public List<MensagemChat> listarConversasUsuario(String username) {
 		List<MensagemChat> mensagens = this.getEntityManager().createQuery(MensagemChat.LISTAR_MENSAGENS_USUARIO, MensagemChat.class)//
 		        .setParameter("username", username)//
 		        .getResultList();
