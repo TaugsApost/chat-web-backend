@@ -3,11 +3,16 @@ package br.com.taugs.chat.mensagem.chat.service;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
 
 import br.com.taugs.chat.mensagem.chat.entity.MensagemChat;
 import br.com.taugs.persistence.AbstractServiceBean;
 import br.com.taugs.persistence.ServiceException;
 
+@Service
+@Transactional
 public class MensagemChatServiceBean extends AbstractServiceBean<MensagemChat, Long> implements MensagemChatService {
 
 	public MensagemChatServiceBean(EntityManager em) {
