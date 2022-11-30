@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.taugs.chat.conversa.Conversa;
+import br.com.taugs.chat.conversa.search.ConversaFilter;
 import br.com.taugs.chat.mensagem.chat.entity.MensagemChat;
 import br.com.taugs.chat.mensagem.grupo.entity.MensagemGrupo;
 import br.com.taugs.chat.mensagem.service.MensagemService;
@@ -38,8 +39,8 @@ public class MensagemResource {
 	}
 
 	@PostMapping(value = "/listarConversas")
-	public ResponseEntity<List<MensagemChat>> listarConversas(@RequestBody String username) throws ServiceException {
-		List<MensagemChat> response = service.listarConversasUsuario(username);
+	public ResponseEntity<List<MensagemChat>> listarConversas(@RequestBody ConversaFilter filter) throws ServiceException {
+		List<MensagemChat> response = service.listarConversasUsuario(filter);
 		return new ResponseEntity<List<MensagemChat>>(response, HttpStatus.OK);
 	}
 

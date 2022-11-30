@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.taugs.chat.conversa.Conversa;
+import br.com.taugs.chat.conversa.search.ConversaFilter;
 import br.com.taugs.chat.mensagem.chat.entity.MensagemChat;
 import br.com.taugs.chat.mensagem.chat.service.MensagemChatService;
 import br.com.taugs.chat.mensagem.entity.Mensagem;
 import br.com.taugs.chat.mensagem.grupo.entity.MensagemGrupo;
 import br.com.taugs.chat.mensagem.grupo.service.MensagemGrupoService;
+import br.com.taugs.chat.utils.Utils;
 import br.com.taugs.persistence.AbstractServiceBean;
 import br.com.taugs.persistence.ServiceException;
 
@@ -62,9 +64,10 @@ public class MensagemServiceBean extends AbstractServiceBean<Mensagem, Long> imp
 	}
 
 	@Override
-	public List<MensagemChat> listarConversasUsuario(String username) {
+	public List<MensagemChat> listarConversasUsuario(ConversaFilter filter) {
 		List<MensagemChat> mensagens = this.getEntityManager().createQuery(MensagemChat.LISTAR_MENSAGENS_USUARIO, MensagemChat.class)//
-		        .setParameter("username", username)//
+		        .setParameter("username", filter.getUsername())//
+		        .setParameter("str", Utils.stringLike(filter.getFiltro()))//
 		        .getResultList();
 		criarListaConversa(mensagens);
 		return mensagens;

@@ -32,10 +32,30 @@ public class MensagemChat extends Mensagem {
 	 */
 	private static final long serialVersionUID = -5774040485566553631L;
 
-	public static final String LISTAR_MENSAGENS_USUARIO = "SELECT MAX(msg) FROM MensagemChat msg WHERE "//
-	        + "((msg.usernameEmissor = :username) OR (msg.usernameReceptor = :username)) " //
-	        + "group by msg.usernameEmissor, msg.usernameReceptor ";
+	// public static final String LISTAR_MENSAGENS_USUARIO = "SELECT MAX(msg) FROM MensagemChat msg zWHERE "//
+	// + "((msg.usernameEmissor = :username) OR (msg.usernameReceptor = :username)) " //
+	// + "group by msg.usernameEmissor, msg.usernameReceptor ";
 	// + "order by msg.dataEnvio DESC";
+
+	public static final String LISTAR_MENSAGENS_USUARIO = "SELECT MAX(msg) FROM MensagemChat msg "//
+	        + "LEFT JOIN msg.receptor.listaDeContatos contatoReceptor "//
+	        + "LEFT JOIN msg.emissor.listaDeContatos contatoEmissor "//
+	        + "WHERE "//
+	        + "("//
+	        + "	((msg.usernameEmissor = :username) "//
+	        + "		AND( "//
+	        + "			(UPPER(REPLACE(contatoEmissor.nomeContato,'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) LIKE :str) "//
+	        + "			OR (UPPER(REPLACE(msg.conteudo,'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) LIKE :str) "//
+	        + "		) "//
+	        + "	) " //
+	        + "	OR ((msg.usernameReceptor = :username) "//
+	        + "		AND( "//
+	        + "			(UPPER(REPLACE(contatoReceptor.nomeContato,'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) LIKE :str) "//
+	        + "			OR (UPPER(REPLACE(msg.conteudo,'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) LIKE :str) "//
+	        + "		)"//
+	        + "	)" //
+	        + ") "//
+	        + "group by msg.usernameEmissor, msg.usernameReceptor ";
 
 	public static final String LISTAR_MENSAGENS_CONVERSA = "SELECT msg FROM MensagemChat msg WHERE "//
 	        + "((msg.usernameEmissor = :username1) AND (msg.usernameReceptor = :username2)) "//

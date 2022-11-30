@@ -3,6 +3,7 @@ package br.com.taugs.chat.mensagem.service;
 import java.util.List;
 
 import br.com.taugs.chat.conversa.Conversa;
+import br.com.taugs.chat.conversa.search.ConversaFilter;
 import br.com.taugs.chat.mensagem.chat.entity.MensagemChat;
 import br.com.taugs.chat.mensagem.entity.Mensagem;
 import br.com.taugs.chat.mensagem.grupo.entity.MensagemGrupo;
@@ -11,7 +12,7 @@ import br.com.taugs.persistence.ServiceException;
 
 public interface MensagemService extends IService<Mensagem, Long> {
 
-	List<MensagemChat> listarConversasUsuario(String username);
+	List<MensagemChat> listarConversasUsuario(ConversaFilter filter);
 
 	List<MensagemChat> listarMensagensConversa(Conversa conversa);
 
