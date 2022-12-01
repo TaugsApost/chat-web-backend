@@ -40,6 +40,11 @@ public class Usuario extends AbstractEntity<Long> {
 
 	public static final String QUERY_CONSULTA = "Select usuario From Usuario usuario WHERE "//
 	        + "(UPPER(REPLACE(usuario.username,'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) LIKE :username)";
+
+	public static final String PESQUISAR_USUARIO = "Select usuario From Usuario usuario WHERE "//
+	        + "(UPPER(REPLACE(usuario.username,'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) LIKE :usernameContato) " //
+	        + "AND usuario.username <> :username";
+
 	public static final String PESQUISAR_POR_ID = "Select usuario From Usuario usuario WHERE "//
 	        + "(UPPER(REPLACE(usuario.username,'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) = :username)";
 

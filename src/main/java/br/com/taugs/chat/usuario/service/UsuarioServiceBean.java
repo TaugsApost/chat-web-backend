@@ -46,7 +46,7 @@ public class UsuarioServiceBean extends AbstractServiceBean<Usuario, Long> imple
 		Usuario usuario = null;
 		try {
 			usuario = this.getEntityManager().createQuery(Usuario.PESQUISAR_POR_ID, Usuario.class)//
-			        .setParameter("username", filtro.getUserName())//
+			        .setParameter("username", filtro.getUsername())//
 			        .getSingleResult();
 			return usuario;
 		} catch (NoResultException e) {
@@ -57,8 +57,9 @@ public class UsuarioServiceBean extends AbstractServiceBean<Usuario, Long> imple
 
 	@Override
 	public List<UsuarioResponse> pesquisar(UsuarioFilter filtro) {
-		List<Usuario> listaUsuario = this.getEntityManager().createQuery(Usuario.QUERY_CONSULTA, Usuario.class)//
-		        .setParameter("username", Utils.stringLike(filtro.getUserName()))//
+		List<Usuario> listaUsuario = this.getEntityManager().createQuery(Usuario.PESQUISAR_USUARIO, Usuario.class)//
+		        .setParameter("usernameContato", Utils.stringLike(filtro.getUsernameContato()))//
+		        .setParameter("username", filtro.getUsername())//
 		        .getResultList();
 		return UsuarioMapper.toResponse(listaUsuario);
 	}

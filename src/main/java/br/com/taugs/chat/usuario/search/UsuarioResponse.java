@@ -12,5 +12,6 @@ import lombok.Setter;
 public class UsuarioResponse {
 
 	private String userName;
+	private String nome;
 
 }

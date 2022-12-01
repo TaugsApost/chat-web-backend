@@ -11,6 +11,7 @@ public class UsuarioMapper {
 		UsuarioResponse to = new UsuarioResponse();
 
 		to.setUserName(from.getUsername());
+		to.setNome(from.getNome());
 
 		return to;
 	}
