@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.com.taugs.chat.conversa.Conversa;
 import br.com.taugs.chat.conversa.search.ConversaFilter;
 import br.com.taugs.chat.mensagem.chat.entity.MensagemChat;
@@ -21,6 +23,7 @@ import br.com.taugs.persistence.ServiceException;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/mensagem")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MensagemResource {
 
 	@Autowired
