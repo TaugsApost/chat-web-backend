@@ -48,7 +48,7 @@ public class ContatoServiceBean extends AbstractServiceBean<Contato, Long> imple
 	public List<ContatoResponse> pesquisar(ContatoFilter filter) {
 		List<Contato> listaContato = this.getEntityManager().createQuery(Contato.QUERY_PESQUISA, Contato.class)//
 		        .setParameter("nome", Utils.stringLike(filter.getNome()))//
-		        .getResultList();
+		        .setParameter("username", filter.getUsername()).getResultList();
 		return ContatoMapper.toResponse(listaContato);
 	}
 

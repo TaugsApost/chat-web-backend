@@ -8,5 +8,6 @@ import lombok.Setter;
 public class ContatoFilter {
 
 	private String nome;
+	private String username;
 
 }

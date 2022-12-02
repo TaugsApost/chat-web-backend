@@ -35,7 +35,8 @@ public class Contato extends AbstractEntity<Long> {
 	private static final long serialVersionUID = 4259695619723837111L;
 
 	public static final String QUERY_PESQUISA = "SELECT contato FROM Contato contato WHERE " //
-	        + "(UPPER(TRANSLATE(COALESCE(contato.nome,''),'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) LIKE :nome)";
+	        + "(UPPER(REPLACE(contato.nomeContato,'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) LIKE :nome) "//
+	        + "AND contato.usernameUsuario = :username ";
 
 	@Id
 	@Column(name = "username_usuario")
@@ -52,9 +53,9 @@ public class Contato extends AbstractEntity<Long> {
 	@JoinColumn(name = "username_usuario", insertable = false, updatable = false)
 	private Usuario usuario;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "username_contato", insertable = false, updatable = false)
-	private Usuario contato;
+	// @ManyToOne(fetch = FetchType.EAGER)
+	// @JoinColumn(name = "username_contato", insertable = false, updatable = false)
+	// private Usuario contato;
 
 	@Override
 	public Long getId() {
