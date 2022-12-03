@@ -8,7 +8,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.taugs.chat.mensagem.entity.Mensagem;
@@ -35,6 +34,15 @@ public class MensagemGrupo extends Mensagem {
 	public static final String LISTAR_MENSAGENS_GRUPO = "SELECT msg FROM MensagemGrupo msg WHERE "//
 	        + "msg.idGrupo = :idGrupo";
 
+	public static final String BUSCAR_TODAS_MENSAGEM_GRUPO_USUARIO = "SELECT msg FROM MensagemGrupo msg " //
+	        + "JOIN Participante participante ON participante.idGrupo = msg.idGrupo " //
+	        + "WHERE participante.username = :username";
+
+	public static final String CRIAR_LISTA_GRUPO = "SELECT MAX(msg) FROM MensagemGrupo msg " //
+	        + "JOIN Participante participante ON participante.idGrupo = msg.idGrupo " //
+	        + "WHERE participante.username = :username " //
+	        + "group by msg.idGrupo";
+
 	@Column(name = "id_grupo")
 	private Long idGrupo;
 
@@ -42,7 +50,6 @@ public class MensagemGrupo extends Mensagem {
 	private String username;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JsonBackReference("mensagem_grupo")
 	@JoinColumn(name = "id_grupo", insertable = false, updatable = false)
 	@JoinColumn(name = "usuario_emissor", insertable = false, updatable = false)
 	private Participante participante;

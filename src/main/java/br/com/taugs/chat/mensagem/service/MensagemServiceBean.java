@@ -65,11 +65,10 @@ public class MensagemServiceBean extends AbstractServiceBean<Mensagem, Long> imp
 
 	@Override
 	public List<MensagemChat> listarConversasUsuario(ConversaFilter filter) {
-		List<MensagemChat> mensagens = this.getEntityManager()
-				.createQuery(MensagemChat.LISTAR_MENSAGENS_USUARIO, MensagemChat.class)//
-				.setParameter("username", filter.getUsername())//
-				.setParameter("str", Utils.stringLike(filter.getFiltro()))//
-				.getResultList();
+		List<MensagemChat> mensagens = this.getEntityManager().createQuery(MensagemChat.LISTAR_MENSAGENS_USUARIO, MensagemChat.class)//
+		        .setParameter("username", filter.getUsername())//
+		        .setParameter("str", Utils.stringLike(filter.getFiltro()))//
+		        .getResultList();
 		criarListaConversa(mensagens);
 		return mensagens;
 	}
@@ -80,7 +79,7 @@ public class MensagemServiceBean extends AbstractServiceBean<Mensagem, Long> imp
 			for (int i = lista.indexOf(msg) + 1; i < lista.size(); i++) {
 				MensagemChat comparar = lista.get(i);
 				if (msg.getUsernameEmissor().equals(comparar.getUsernameReceptor()) //
-						&& msg.getUsernameReceptor().equals(comparar.getUsernameEmissor())) {
+				        && msg.getUsernameReceptor().equals(comparar.getUsernameEmissor())) {
 					if (comparar.getDataEnvio().after(msg.getDataEnvio())) {
 						lixo.add(msg);
 					} else {
@@ -96,19 +95,18 @@ public class MensagemServiceBean extends AbstractServiceBean<Mensagem, Long> imp
 
 	@Override
 	public List<MensagemChat> listarMensagensConversa(Conversa conversa) {
-		List<MensagemChat> mensagens = this.getEntityManager()
-				.createQuery(MensagemChat.LISTAR_MENSAGENS_CONVERSA, MensagemChat.class)//
-				.setParameter("username1", conversa.getUsername1())//
-				.setParameter("username2", conversa.getUsername2())//
-				.getResultList();
+		List<MensagemChat> mensagens = this.getEntityManager().createQuery(MensagemChat.LISTAR_MENSAGENS_CONVERSA, MensagemChat.class)//
+		        .setParameter("username1", conversa.getUsername1())//
+		        .setParameter("username2", conversa.getUsername2())//
+		        .getResultList();
 		return mensagens;
 	}
 
 	@Override
 	public List<MensagemGrupo> listarMensagensGrupo(Long idGrupo) {
 		return this.getEntityManager().createQuery(MensagemGrupo.LISTAR_MENSAGENS_GRUPO, MensagemGrupo.class)//
-				.setParameter("idGrupo", idGrupo)//
-				.getResultList();
+		        .setParameter("idGrupo", idGrupo)//
+		        .getResultList();
 	}
 
 	@Override
@@ -124,6 +122,22 @@ public class MensagemServiceBean extends AbstractServiceBean<Mensagem, Long> imp
 	@Override
 	public String deletarMensagemChat(Long id) throws ServiceException {
 		return mensagemCharService.excluir(id);
+	}
+
+	@Override
+	public List<MensagemGrupo> buscarTodasMensagensGrupoUsuario(String username) {
+		System.out.println(username);
+		return this.getEntityManager().createQuery(MensagemGrupo.BUSCAR_TODAS_MENSAGEM_GRUPO_USUARIO, MensagemGrupo.class)//
+		        .setParameter("username", username)//
+		        .getResultList();
+	}
+
+	@Override
+	public List<MensagemGrupo> listarGrupoUsuario(String username) {
+		System.out.println(username);
+		return this.getEntityManager().createQuery(MensagemGrupo.CRIAR_LISTA_GRUPO, MensagemGrupo.class)//
+		        .setParameter("username", username)//
+		        .getResultList();
 	}
 
 }

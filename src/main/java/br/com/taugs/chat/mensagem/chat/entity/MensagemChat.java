@@ -10,7 +10,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import br.com.taugs.chat.mensagem.entity.Mensagem;
 import br.com.taugs.chat.usuario.entity.Usuario;
@@ -27,7 +26,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
 public class MensagemChat extends Mensagem {
 	/**
 	 * 
@@ -69,12 +67,12 @@ public class MensagemChat extends Mensagem {
 	@Column(name = "usuario_receptor")
 	private String usernameReceptor;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonBackReference("chat_receptor")
 	@JoinColumn(name = "usuario_receptor", insertable = false, updatable = false)
 	private Usuario receptor;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonBackReference("chat_emissor")
 	@JoinColumn(name = "usuario_emissor", insertable = false, updatable = false)
 	private Usuario emissor;

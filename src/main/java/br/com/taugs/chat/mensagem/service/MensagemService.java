@@ -24,4 +24,8 @@ public interface MensagemService extends IService<Mensagem, Long> {
 
 	String deletarMensagemChat(Long id) throws ServiceException;
 
+	List<MensagemGrupo> buscarTodasMensagensGrupoUsuario(String username);
+
+	List<MensagemGrupo> listarGrupoUsuario(String username);
+
 }

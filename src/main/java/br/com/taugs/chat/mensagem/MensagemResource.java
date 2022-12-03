@@ -48,8 +48,7 @@ public class MensagemResource {
 	}
 
 	@PostMapping(value = "/listarConversas")
-	public ResponseEntity<List<MensagemChat>> listarConversas(@RequestBody ConversaFilter filter)
-			throws ServiceException {
+	public ResponseEntity<List<MensagemChat>> listarConversas(@RequestBody ConversaFilter filter) throws ServiceException {
 		List<MensagemChat> response = service.listarConversasUsuario(filter);
 		return new ResponseEntity<List<MensagemChat>>(response, HttpStatus.OK);
 	}
@@ -63,6 +62,18 @@ public class MensagemResource {
 	@PostMapping(value = "/listarMensagensGrupo")
 	public ResponseEntity<List<MensagemGrupo>> listarMensagemGrupo(@RequestBody Long id) throws ServiceException {
 		List<MensagemGrupo> response = service.listarMensagensGrupo(id);
+		return new ResponseEntity<List<MensagemGrupo>>(response, HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/criarListaGrupos")
+	public ResponseEntity<List<MensagemGrupo>> criarListaGrupo(@RequestBody String username) throws ServiceException {
+		List<MensagemGrupo> response = service.listarGrupoUsuario(username);
+		return new ResponseEntity<List<MensagemGrupo>>(response, HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/buscarMensagensGrupoUsuario")
+	public ResponseEntity<List<MensagemGrupo>> buscarMensagensGrupoUsuario(@RequestBody String username) throws ServiceException {
+		List<MensagemGrupo> response = service.buscarTodasMensagensGrupoUsuario(username);
 		return new ResponseEntity<List<MensagemGrupo>>(response, HttpStatus.OK);
 	}
 

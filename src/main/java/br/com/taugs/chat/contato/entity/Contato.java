@@ -48,7 +48,7 @@ public class Contato extends AbstractEntity<Long> {
 
 	private String nomeContato;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonBackReference("contato_usuario")
 	@JoinColumn(name = "username_usuario", insertable = false, updatable = false)
 	private Usuario usuario;

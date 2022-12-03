@@ -43,9 +43,16 @@ public class Grupo extends AbstractEntity<Long> {
 	public static final String PESQUISAR_POR_NOME = "SELECT grupo FROM Grupo grupo WHERE " //
 	        + "(UPPER(TRANSLATE(COALESCE(grupo.nome,''),'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) LIKE :nome)";
 
-	public static final String BUSCAR_GRUPO_POR_USUARIO = "SELECT grupo FROM Grupo grupo "//
-	        + "LEFT JOIN FETCH grupo.listaParticipantes participante " //
-	        + "WHERE participante.username = :username";
+	public static final String BUSCAR_GRUPO_POR_USUARIO = "SELECT new br.com.taugs.chat.grupo.entity.Grupo(grupo.id, grupo.nome) "//
+	        + "FROM Grupo grupo "//
+	        + "LEFT JOIN grupo.listaParticipantes participante " //
+	        + "WHERE participante.username = :username " //
+	        + "order by grupo.dataAlteracao DESC";
+
+	public Grupo(Long id, String nome) {
+		this.id = id;
+		this.nome = nome;
+	}
 
 	@Id
 	@Column(name = "id_grupo")
@@ -60,7 +67,7 @@ public class Grupo extends AbstractEntity<Long> {
 
 	@JsonManagedReference("part")
 	@Fetch(value = FetchMode.SUBSELECT)
-	@OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<Participante> listaParticipantes;
 
 }
