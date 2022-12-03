@@ -22,4 +22,6 @@ public interface MensagemService extends IService<Mensagem, Long> {
 
 	MensagemChat salvarMensagemChat(MensagemChat entity) throws ServiceException;
 
+	String deletarMensagemChat(Long id) throws ServiceException;
+
 }

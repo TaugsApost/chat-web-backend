@@ -41,8 +41,15 @@ public class MensagemResource {
 		return new ResponseEntity<MensagemChat>(entity, HttpStatus.OK);
 	}
 
+	@PostMapping(value = "/deletarMensagemChat")
+	public ResponseEntity<String> deletarMensagemChat(@RequestBody Long id) throws ServiceException {
+		String entity = service.deletarMensagemChat(id);
+		return new ResponseEntity<String>(entity, HttpStatus.OK);
+	}
+
 	@PostMapping(value = "/listarConversas")
-	public ResponseEntity<List<MensagemChat>> listarConversas(@RequestBody ConversaFilter filter) throws ServiceException {
+	public ResponseEntity<List<MensagemChat>> listarConversas(@RequestBody ConversaFilter filter)
+			throws ServiceException {
 		List<MensagemChat> response = service.listarConversasUsuario(filter);
 		return new ResponseEntity<List<MensagemChat>>(response, HttpStatus.OK);
 	}
