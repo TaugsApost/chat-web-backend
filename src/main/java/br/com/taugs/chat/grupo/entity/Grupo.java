@@ -43,6 +43,10 @@ public class Grupo extends AbstractEntity<Long> {
 	public static final String PESQUISAR_POR_NOME = "SELECT grupo FROM Grupo grupo WHERE " //
 	        + "(UPPER(TRANSLATE(COALESCE(grupo.nome,''),'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) LIKE :nome)";
 
+	public static final String BUSCAR_GRUPO_POR_USUARIO = "SELECT grupo FROM Grupo grupo "//
+	        + "LEFT JOIN FETCH grupo.listaParticipantes participante " //
+	        + "WHERE participante.username = :username";
+
 	@Id
 	@Column(name = "id_grupo")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,7 +58,7 @@ public class Grupo extends AbstractEntity<Long> {
 
 	private Timestamp dataCriacao;
 
-	@JsonManagedReference
+	@JsonManagedReference("part")
 	@Fetch(value = FetchMode.SUBSELECT)
 	@OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<Participante> listaParticipantes;

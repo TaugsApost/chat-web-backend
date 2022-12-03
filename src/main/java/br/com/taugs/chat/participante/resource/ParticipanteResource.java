@@ -1,5 +1,7 @@
 package br.com.taugs.chat.participante.resource;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,12 @@ public class ParticipanteResource {
 	public ResponseEntity<Participante> salvar(@RequestBody Participante participante) throws ServiceException {
 		Participante entity = service.salvar(participante);
 		return new ResponseEntity<Participante>(entity, HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/salvarParticipantes")
+	public ResponseEntity<List<Participante>> salvarParticipantes(@RequestBody List<Participante> participante) throws ServiceException {
+		List<Participante> entity = service.salvar(participante);
+		return new ResponseEntity<List<Participante>>(entity, HttpStatus.OK);
 	}
 
 }

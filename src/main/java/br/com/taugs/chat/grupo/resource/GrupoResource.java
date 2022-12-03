@@ -38,4 +38,10 @@ public class GrupoResource {
 		return new ResponseEntity<List<GrupoResponse>>(response, HttpStatus.OK);
 	}
 
+	@PostMapping(value = "/buscarPorUsuario")
+	public ResponseEntity<List<Grupo>> buscarPorUsuario(@RequestBody String username) {
+		List<Grupo> response = this.service.listaGrupo(username);
+		return new ResponseEntity<List<Grupo>>(response, HttpStatus.OK);
+	}
+
 }

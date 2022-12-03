@@ -43,8 +43,8 @@ public class MensagemGrupo extends Mensagem {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonBackReference("mensagem_grupo")
-	@JoinColumn(name = "usuario_emissor", insertable = false, updatable = false)
 	@JoinColumn(name = "id_grupo", insertable = false, updatable = false)
+	@JoinColumn(name = "usuario_emissor", insertable = false, updatable = false)
 	private Participante participante;
 
 }

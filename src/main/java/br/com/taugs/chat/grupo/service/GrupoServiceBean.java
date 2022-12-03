@@ -58,4 +58,11 @@ public class GrupoServiceBean extends AbstractServiceBean<Grupo, Long> implement
 		return resultado;
 	}
 
+	@Override
+	public List<Grupo> listaGrupo(String username) {
+		return this.getEntityManager().createQuery(Grupo.BUSCAR_GRUPO_POR_USUARIO, Grupo.class)//
+		        .setParameter("username", username)//
+		        .getResultList();
+	}
+
 }

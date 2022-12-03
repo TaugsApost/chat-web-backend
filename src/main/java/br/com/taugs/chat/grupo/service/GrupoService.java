@@ -11,4 +11,6 @@ public interface GrupoService extends IService<Grupo, Long> {
 
 	List<GrupoResponse> listaGrupo(GrupoFilter filter);
 
+	List<Grupo> listaGrupo(String username);
+
 }

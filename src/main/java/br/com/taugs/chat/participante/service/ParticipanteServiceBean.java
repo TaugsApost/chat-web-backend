@@ -1,5 +1,6 @@
 package br.com.taugs.chat.participante.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -38,6 +39,20 @@ public class ParticipanteServiceBean extends AbstractServiceBean<Participante, L
 	@Override
 	public Participante detalhar(Long id) throws ServiceException {
 		return this.detalharEntity(id);
+	}
+
+	@Override
+	public List<Participante> salvar(List<Participante> entity) {
+		List<Participante> retorno = new ArrayList<Participante>();
+		entity.forEach(e -> {
+			try {
+				retorno.add(this.salvar(e));
+			} catch (ServiceException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		return retorno;
 	}
 
 }

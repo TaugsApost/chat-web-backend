@@ -65,7 +65,7 @@ public class Participante extends AbstractEntity<Long> {
 	private Usuario usuario;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JsonBackReference
+	@JsonBackReference("part")
 	@JoinColumn(name = "id_grupo", insertable = false, updatable = false)
 	private Grupo grupo;
 
