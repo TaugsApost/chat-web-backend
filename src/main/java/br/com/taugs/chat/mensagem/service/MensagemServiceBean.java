@@ -121,7 +121,7 @@ public class MensagemServiceBean extends AbstractServiceBean<Mensagem, Long> imp
 
 	@Override
 	public String deletarMensagemChat(Long id) throws ServiceException {
-		return mensagemCharService.excluir(id);
+		return this.excluir(id);
 	}
 
 	@Override
