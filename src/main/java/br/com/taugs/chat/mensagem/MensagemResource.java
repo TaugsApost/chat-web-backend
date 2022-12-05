@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import br.com.taugs.chat.conversa.Conversa;
 import br.com.taugs.chat.conversa.search.ConversaFilter;
 import br.com.taugs.chat.mensagem.chat.entity.MensagemChat;
+import br.com.taugs.chat.mensagem.entity.Mensagem;
 import br.com.taugs.chat.mensagem.grupo.entity.MensagemGrupo;
 import br.com.taugs.chat.mensagem.service.MensagemService;
 import br.com.taugs.chat.utils.RestMapping;
@@ -36,6 +37,12 @@ public class MensagemResource {
 	public ResponseEntity<MensagemGrupo> salvarMensagemGrupo(@RequestBody MensagemGrupo msg) throws ServiceException {
 		MensagemGrupo entity = service.salvarMensagemGrupo(msg);
 		return new ResponseEntity<MensagemGrupo>(entity, HttpStatus.OK);
+	}
+
+	@PostMapping(value = RestMapping.SALVAR)
+	public ResponseEntity<Mensagem> salvarMensagem(@RequestBody Mensagem msg) throws ServiceException {
+		Mensagem entity = service.salvar(msg);
+		return new ResponseEntity<Mensagem>(entity, HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/excluirMensagem")
