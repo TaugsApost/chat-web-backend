@@ -33,6 +33,13 @@ public class ParticipanteServiceBean extends AbstractServiceBean<Participante, L
 	}
 
 	@Override
+	protected void beforeSave(Participante entity) throws ServiceException {
+		if (this.grupoService.detalhar(entity.getIdGrupo()).getListaParticipantes().size() == 5) {
+			throw new ServiceException("Não é possivel adicionar mais participantes a este grupo. Número maximo atingido");
+		}
+	}
+
+	@Override
 	public Participante salvar(Participante entity) throws ServiceException {
 		return this.salvarEntity(entity);
 	}
@@ -51,7 +58,7 @@ public class ParticipanteServiceBean extends AbstractServiceBean<Participante, L
 	public List<Participante> salvar(List<Participante> entity) throws ServiceException {
 		List<Participante> retorno = new ArrayList<Participante>();
 		Grupo grupo = this.grupoService.detalhar(entity.get(0).getIdGrupo());
-		if (entity.size() + grupo.getListaParticipantes().size() > 5)
+		if (entity.size() + grupo.getListaParticipantes().size() >= 5)
 			throw new ServiceException("O numero de participantes excede o permitido (5)");
 		entity.forEach(e -> {
 			try {

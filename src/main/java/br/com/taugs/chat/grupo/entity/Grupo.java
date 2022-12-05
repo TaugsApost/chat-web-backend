@@ -49,6 +49,11 @@ public class Grupo extends AbstractEntity<Long> {
 	        + "WHERE participante.username = :username " //
 	        + "order by grupo.dataAlteracao DESC";
 
+	public static final String BUSCAR_GRUPO = "SELECT grupo FROM Grupo grupo "//
+	        + "LEFT JOIN grupo.listaParticipantes participante "//
+	        + "WHERE participante.username = :username "//
+	        + "order by grupo.dataAlteracao desc ";//
+
 	public Grupo(Long id, String nome) {
 		this.id = id;
 		this.nome = nome;

@@ -53,7 +53,7 @@ public class GrupoServiceBean extends AbstractServiceBean<Grupo, Long> implement
 
 	@Override
 	public Grupo detalhar(Long id) throws ServiceException {
-		return this.detalhar(id);
+		return this.detalharEntity(id);
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class GrupoServiceBean extends AbstractServiceBean<Grupo, Long> implement
 
 	@Override
 	public List<Grupo> listaGrupo(String username) {
-		return this.getEntityManager().createQuery(Grupo.BUSCAR_GRUPO_POR_USUARIO, Grupo.class)//
+		return this.getEntityManager().createQuery(Grupo.BUSCAR_GRUPO, Grupo.class)//
 		        .setParameter("username", username)//
 		        .getResultList();
 	}

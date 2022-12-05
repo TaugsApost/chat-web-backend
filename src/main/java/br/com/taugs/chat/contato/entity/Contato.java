@@ -38,6 +38,11 @@ public class Contato extends AbstractEntity<Long> {
 	        + "(UPPER(REPLACE(contato.nomeContato,'áãàâäçéèëêùûüúóôöïîíÁÀÂÄÃÇÉÈËÊÙÛÜÚÓÔÖÏÎÍ','aaaaaceeeeuuuuoooiiiAAAAACEEEEUUUUOOOIII')) LIKE :nome) "//
 	        + "AND contato.usernameUsuario = :username ";
 
+	public static final String ADICIONAR_NO_GRUPO = "SELECT contato FROM Contato contato "//
+	        + "JOIN Usuario usuario on usuario.username = contato.usernameContato "//
+	        + "JOIN Participante participante on participante.username = usuario.username "//
+	        + "WHERE contato.usernameUsuario = :usuario AND participante.idGrupo <> :idGrupo";
+
 	@Id
 	@Column(name = "username_usuario")
 	private String usernameUsuario;
