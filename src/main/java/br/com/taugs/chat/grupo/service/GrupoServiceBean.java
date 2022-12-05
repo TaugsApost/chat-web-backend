@@ -35,6 +35,13 @@ public class GrupoServiceBean extends AbstractServiceBean<Grupo, Long> implement
 	}
 
 	@Override
+	protected void beforeSave(Grupo entity) throws ServiceException {
+		if (entity.getNome().length() > 20)
+			throw new ServiceException("O nome do grupo excede o maximo permitido (20)");
+		super.beforeSave(entity);
+	}
+
+	@Override
 	public Grupo salvar(Grupo entity) throws ServiceException {
 		return this.salvarEntity(entity);
 	}

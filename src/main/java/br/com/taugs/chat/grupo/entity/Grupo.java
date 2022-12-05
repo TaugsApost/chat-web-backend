@@ -67,7 +67,7 @@ public class Grupo extends AbstractEntity<Long> {
 
 	@JsonManagedReference("part")
 	@Fetch(value = FetchMode.SUBSELECT)
-	@OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Participante> listaParticipantes;
 
 }

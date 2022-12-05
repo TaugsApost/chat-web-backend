@@ -6,8 +6,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.taugs.chat.grupo.entity.Grupo;
+import br.com.taugs.chat.grupo.service.GrupoService;
 import br.com.taugs.chat.participante.entity.Participante;
 import br.com.taugs.persistence.AbstractServiceBean;
 import br.com.taugs.persistence.ServiceException;
@@ -15,6 +18,9 @@ import br.com.taugs.persistence.ServiceException;
 @Service
 @Transactional
 public class ParticipanteServiceBean extends AbstractServiceBean<Participante, Long> implements ParticipanteService {
+
+	@Autowired
+	private GrupoService grupoService;
 
 	public ParticipanteServiceBean(EntityManager em) {
 		super(em);
@@ -42,8 +48,11 @@ public class ParticipanteServiceBean extends AbstractServiceBean<Participante, L
 	}
 
 	@Override
-	public List<Participante> salvar(List<Participante> entity) {
+	public List<Participante> salvar(List<Participante> entity) throws ServiceException {
 		List<Participante> retorno = new ArrayList<Participante>();
+		Grupo grupo = this.grupoService.detalhar(entity.get(0).getIdGrupo());
+		if (entity.size() + grupo.getListaParticipantes().size() > 5)
+			throw new ServiceException("O numero de participantes excede o permitido (5)");
 		entity.forEach(e -> {
 			try {
 				retorno.add(this.salvar(e));
