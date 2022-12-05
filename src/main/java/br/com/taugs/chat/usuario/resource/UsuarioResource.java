@@ -35,6 +35,12 @@ public class UsuarioResource {
 		return new ResponseEntity<Usuario>(entity, HttpStatus.OK);
 	}
 
+	@PostMapping(value = RestMapping.EDITAR)
+	public ResponseEntity<Usuario> editar(@RequestBody Usuario usuario) throws ServiceException {
+		Usuario entity = service.editar(usuario);
+		return new ResponseEntity<Usuario>(entity, HttpStatus.OK);
+	}
+
 	@PostMapping(value = RestMapping.PESQUISAR)
 	public ResponseEntity<List<UsuarioResponse>> consultar(@RequestBody UsuarioFilter filter) throws ServiceException {
 		List<UsuarioResponse> lista = service.pesquisar(filter);

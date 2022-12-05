@@ -83,4 +83,9 @@ public class UsuarioServiceBean extends AbstractServiceBean<Usuario, Long> imple
 		}
 	}
 
+	@Override
+	public Usuario editar(Usuario entity) throws ServiceException {
+		return this.updateEntity(entity);
+	}
+
 }

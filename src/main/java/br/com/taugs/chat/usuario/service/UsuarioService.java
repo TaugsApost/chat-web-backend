@@ -16,4 +16,6 @@ public interface UsuarioService extends IService<Usuario, Long> {
 	Usuario detalhar(UsuarioFilter filtro) throws ServiceException;
 
 	Usuario logar(Login login) throws ServiceException;
+
+	Usuario editar(Usuario entity) throws ServiceException;
 }
