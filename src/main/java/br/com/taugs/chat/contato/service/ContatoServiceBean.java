@@ -52,4 +52,14 @@ public class ContatoServiceBean extends AbstractServiceBean<Contato, Long> imple
 		return ContatoMapper.toResponse(listaContato);
 	}
 
+	@Override
+	public Contato editar(Contato entity) throws ServiceException {
+		return this.updateEntity(entity);
+	}
+
+	@Override
+	public String excluir(Contato entity) {
+		return this.excluirEntity(entity);
+	}
+
 }

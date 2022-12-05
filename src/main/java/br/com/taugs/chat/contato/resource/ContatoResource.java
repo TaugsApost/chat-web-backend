@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,12 @@ public class ContatoResource {
 		return new ResponseEntity<Contato>(entity, HttpStatus.OK);
 	}
 
+	@PostMapping(value = RestMapping.EDITAR)
+	public ResponseEntity<Contato> editar(@RequestBody Contato contato) throws ServiceException {
+		Contato entity = service.editar(contato);
+		return new ResponseEntity<Contato>(entity, HttpStatus.OK);
+	}
+
 	@PostMapping(value = RestMapping.PESQUISAR)
 	public ResponseEntity<List<ContatoResponse>> consultar(@RequestBody ContatoFilter filter) throws ServiceException {
 		List<ContatoResponse> lista = service.pesquisar(filter);
@@ -52,9 +59,9 @@ public class ContatoResource {
 		return new ResponseEntity<List<Contato>>(entity, HttpStatus.OK);
 	}
 
-	@GetMapping(value = RestMapping.EXCLUIR + "/{id}")
-	public ResponseEntity<String> excluirContato(@PathVariable("id") Long id) throws ServiceException {
-		String msg = service.excluir(id);
+	@DeleteMapping(value = RestMapping.EXCLUIR)
+	public ResponseEntity<String> excluirContato(@RequestBody Contato contato) throws ServiceException {
+		String msg = service.excluir(contato);
 		return new ResponseEntity<String>(msg, HttpStatus.OK);
 	}
 

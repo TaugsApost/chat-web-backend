@@ -56,6 +56,10 @@ public abstract class AbstractServiceBean<E extends AbstractEntity<T>, T extends
 			return update(entity);
 	}
 
+	public E updateEntity(E entity) throws ServiceException {
+		return update(entity);
+	}
+
 	private E update(E entity) throws ServiceException {
 		this.beforeSave(entity);
 		E updatedEntity = this.em.merge(entity);
@@ -77,6 +81,11 @@ public abstract class AbstractServiceBean<E extends AbstractEntity<T>, T extends
 		}
 		this.em.remove(entity);
 		return "Entidade com id " + id + " de " + entityClass.getName() + " excluida!";
+	}
+
+	public String excluirEntity(E entity) {
+		em.remove(em.contains(entity) ? entity : em.merge(entity));
+		return "Entidade de " + entityClass.getName() + " excluida!";
 	}
 
 	public List<E> listarTodosEntity() {
