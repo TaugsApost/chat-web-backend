@@ -1,0 +1,94 @@
+INSERT INTO 
+	tb_usuario (username,nome,senha)
+VALUES
+	('Taugs','Tomaz Augusto','tomaz12345'),
+	('Filipin','Filipe Rocha','filipe12345'),
+	('Marcus','Marcus Ribeiro','marcus12345'),
+	('prof','Professor Evandrino','prof12345'),
+	('sasa','Sabrina Passos','sasa12345');
+
+INSERT INTO
+	tb_contato(username_usuario,username_contato,nomeContato)
+VALUES
+	('Taugs','sasa','Sasa Linda'),
+	('Filipin','Taugs','Tomaz Cefet'),
+	('Taugs','Filipin','Filipe Cefet'),
+	('Taugs','Marcus','Marcus Cefet'),
+	('Filipin','Marcus','Marcus Cefet'),
+	('Filipin','prof','Professor BDI'),
+	('Filipin','sasa','Sasa');
+	
+INSERT INTO
+	tb_grupo (id_grupo, nome)
+VALUES
+	(1,'Grupo Trab BDI'),
+	(2,'BDI Cefet'),
+	(3,'Qual a boa de hj?'),
+	(4,'O HEXA VEM!!!'),
+	(5,'Grupo de Estudos');
+	
+INSERT INTO 
+	tb_participante (username,id_grupo)
+VALUES
+	('Taugs',1),
+	('Filipin',1),
+	('Marcus',1),
+	('Taugs',2),
+	('Filipin',2),
+	('Marcus',2),
+	('prof',2),
+	('sasa',3),
+	('Taugs',3),
+	('Marcus',3),
+	('Filipin',3),
+	('Taugs',4),
+	('Filipin',4),
+	('Filipin',5);
+
+INSERT INTO
+	tb_mensagem (id_mensagem, conteudo, dataEnvio)
+VALUES
+	(1,'Grupo morto :/', '2022-10-20 21:00:00.000'),
+	(2,'Amanha é 4 x 0 com hat trick do pombo','2022-12-04 00:00:00.000'),
+	(3,'ESSA SELECAO É UMA MAQUINA DE EM VENCER VEI','2022-12-05 18:00:00.000'),
+	(4,'Funk 4 Kpop 0','2022-11-05 16:50:00.000'),
+	(5,'Trab foi adiado pra segunda galera :D','2022-12-02 23:55:00.000'),
+	(6,'Estudar para a prova de BDI na quarta','2022-11-29 00:00:00.000'),
+	(7,'Devido a pedidos estou adiando o trabalho para segunda feira','2022-12-01 23:50:00.000'),
+	(8,'Fala mano, bom dia, tudo bem?','2022-12-05 10:00:00.000'),
+	(9,'Tudo sim mano e ai?','2022-12-05 10:01:00.000'),
+	(10,'Tranquilo','2022-12-05 10:02:00.000'),
+	(11,'Top. Trab hj eu monto os scripts e voce o video, fechou','2022-12-05 10:03:00.000'),
+	(12,'Fechou!!!','2022-12-05 10:04:00.000');
+
+insert into 
+	tb_mensagem_chat(id_mensagem_chat,usuario_emissor,usuario_receptor)
+values
+	(8,'Taugs','Filipin'),
+	(9,'Filipin','Taugs'),
+	(10,'Taugs','Filipin'),
+	(11,'Taugs','Filipin'),
+	(12,'Filipin','Taugs');
+
+insert into 
+	tb_mensagem_grupo (id_mensagem_grupo,id_grupo,usuario_emissor)
+values 
+	(1,3,'Taugs'),
+	(2,4,'Taugs'),
+	(3,4,'Filipin'),
+	(4,4,'Taugs'),
+	(5,1,'Taugs'),
+	(6,5,'Filipin'),
+	(7,2,'prof');
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
